@@ -9,12 +9,12 @@ status: Mastère MarCom & RP — INSEEC Paris
 
 hero_photo: /assets/img/profile_hero_section.jpeg # photo du hero (laisser vide pour la masquer)
 hero_photo_alt: Jémima Egla assise, dans une pose majestueuse
-portrait: /assets/img/jemima-portrait.jpg
-portrait_alt: Portrait de Jémima Egla, en noir et blanc
+portrait: /assets/img/jemima-parole.jpg
+portrait_alt: Jémima Egla en pleine prise de parole, en noir et blanc
 
 # Image affichée quand on partage le lien (LinkedIn, WhatsApp, X…).
 # Une page projet avec une couverture utilise sa couverture à la place.
-share_image: /assets/img/jemima-portrait.jpg
+share_image: /assets/img/jemima-parole.jpg
 
 email: jemimae.egla@gmail.com
 phone: "" # ex. "+33 7 …" — laisser vide pour ne pas l'afficher en ligne
