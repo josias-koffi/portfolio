@@ -18,6 +18,9 @@ links:
 
 Une expérience freelance au plus près des besoins des marques, mêlant création de contenus, activation, événementiel, merchandising et coordination opérationnelle.
 
+<!-- EXEMPLE d'image entre deux paragraphes — à remplacer par une vraie photo du projet -->
+{% include media.html src="/assets/projects/boya-food-edzrom/exemple-image.jpg" alt="Portrait de Jémima Egla" caption="Exemple d'image — à remplacer par une photo du stand ou d'un pop-up." %}
+
 ## Ce que j'ai fait
 
 - Pilotage de la communication digitale des marques (Instagram, Facebook, TikTok).
@@ -28,5 +31,8 @@ Une expérience freelance au plus près des besoins des marques, mêlant créati
 ## Salon International de l'Agriculture
 
 Organisation et activation de la présence de Boya Food sur deux éditions du salon : préparation, animation du stand et post-event marketing.
+
+<!-- EXEMPLE de vidéo (lecture auto en boucle, sans son) — à remplacer par une vraie vidéo -->
+{% include media.html src="/assets/projects/boya-food-edzrom/exemple-video.mp4" loop=true caption="Exemple de vidéo en boucle — à remplacer par une vidéo du salon (MP4, < 10 Mo)." %}
 
 <!-- À compléter : photos du stand / pop-up, un chiffre (visiteurs, dégustations, abonnés gagnés…) -->

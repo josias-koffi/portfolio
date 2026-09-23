@@ -38,6 +38,21 @@ Un champ laissé vide (`""` ou `[]`) n'est **pas affiché** : on peut publier ma
    ```
 3. Écrire le texte en dessous en Markdown (`## Titre`, paragraphes, listes `- …`).
 
+## Glisser une image ou une vidéo entre deux paragraphes
+
+Dans le texte d'un projet (sous les `---`), laisser une ligne vide avant et après :
+
+```liquid
+{% include media.html src="/assets/projects/mon-projet/photo.jpg" alt="Description" caption="Légende" %}
+
+{% include media.html src="/assets/projects/mon-projet/film.mp4" caption="Légende" %}             ← avec boutons play/son
+{% include media.html src="/assets/projects/mon-projet/film.mp4" loop=true %}                    ← auto, en boucle, muet
+{% include media.html youtube="ID_DE_LA_VIDEO" caption="Légende" %}                              ← YouTube
+```
+
+`caption` est facultatif. Exemple complet dans `_projects/boya-food-edzrom.md`.
+Vidéos : MP4 (H.264), idéalement < 10 Mo (GitHub refuse les fichiers > 100 Mo) ; au-delà, passer par YouTube.
+
 ## Images
 
 - Créer le dossier `assets/projects/<nom-du-projet>/` et y mettre `cover.jpg`, `01.jpg`, `02.jpg`…

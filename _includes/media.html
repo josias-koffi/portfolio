@@ -1,0 +1,20 @@
+{%- comment -%}
+  Image ou vidéo à glisser entre deux paragraphes d'un projet.
+
+  Image   : {% include media.html src="/assets/projects/mon-projet/photo.jpg" alt="Description" caption="Légende" %}
+  Vidéo   : {% include media.html src="/assets/projects/mon-projet/film.mp4" caption="Légende" %}
+            + loop=true  → lecture auto, en boucle, sans son (effet GIF)
+            + poster="/assets/…jpg" → image affichée avant la lecture
+  YouTube : {% include media.html youtube="dQw4w9WgXcQ" caption="Légende" %}
+{%- endcomment -%}
+{%- assign ext = include.src | split: "." | last | downcase -%}
+<figure class="media">
+{%- if include.youtube -%}
+<div class="media__embed"><iframe src="https://www.youtube-nocookie.com/embed/{{ include.youtube }}" title="{{ include.caption | default: 'Vidéo' }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+{%- elsif ext == "mp4" or ext == "webm" or ext == "mov" -%}
+<video src="{{ include.src | relative_url }}"{% if include.poster %} poster="{{ include.poster | relative_url }}"{% endif %}{% if include.loop %} autoplay muted loop playsinline{% else %} controls playsinline{% endif %} preload="metadata"{% if include.caption %} aria-label="{{ include.caption }}"{% endif %}></video>
+{%- else -%}
+<img src="{{ include.src | relative_url }}" alt="{{ include.alt }}" loading="lazy">
+{%- endif -%}
+{%- if include.caption -%}<figcaption>{{ include.caption }}</figcaption>{%- endif -%}
+</figure>
