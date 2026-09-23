@@ -1,0 +1,72 @@
+# Publie les deux branches sur le même site GitHub Pages :
+#   main    → https://<compte>.github.io/<repo>/          (prod)
+#   develop → https://<compte>.github.io/<repo>/staging/  (staging, noindex)
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      JEKYLL_ENV: production
+      BASE: /${{ github.event.repository.name }}
+    steps:
+      - name: Checkout main (prod)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: prod
+
+      - name: Checkout develop (staging)
+        id: staging
+        continue-on-error: true
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+          path: staging
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: prod
+
+      - name: Build prod
+        working-directory: prod
+        run: bundle exec jekyll build --baseurl "$BASE" -d ../_site
+
+      - name: Build staging
+        if: steps.staging.outcome == 'success'
+        working-directory: staging
+        env:
+          BUNDLE_GEMFILE: ${{ github.workspace }}/prod/Gemfile
+        run: |
+          echo "staging: true" > ../staging.yml
+          bundle exec jekyll build --baseurl "$BASE/staging" --config _config.yml,../staging.yml -d ../_site/staging
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

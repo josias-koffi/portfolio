@@ -1,0 +1,60 @@
+---
+layout: default
+body_class: page-project
+---
+{% assign projects = site.projects | sort: "order" %}
+{% assign idx = 0 %}
+{% for pr in projects %}{% if pr.url == page.url %}{% assign idx = forloop.index0 %}{% endif %}{% endfor %}
+{% assign num = idx | plus: 1 %}
+{% assign next_i = idx | plus: 1 %}{% if next_i >= projects.size %}{% assign next_i = 0 %}{% endif %}
+{% assign next = projects[next_i] %}
+{% assign next_num = next_i | plus: 1 %}
+
+<article class="project">
+  <header class="project__head wrap">
+    <p class="label intro" style="--d: 0">
+      <a class="back" href="{{ '/#projets' | relative_url }}">← Tous les projets</a>
+      <span>{% if num < 10 %}0{% endif %}{{ num }} / {% if projects.size < 10 %}0{% endif %}{{ projects.size }}</span>
+    </p>
+    <h1 class="project__title intro" style="--d: 1">{{ page.title }}</h1>
+    {% if page.tagline and page.tagline != empty %}<p class="project__excerpt intro" style="--d: 2">{{ page.tagline }}</p>{% endif %}
+    <dl class="project__meta intro" style="--d: 3">
+      {% if page.client and page.client != empty %}<div><dt>Client</dt><dd>{{ page.client }}</dd></div>{% endif %}
+      {% if page.year and page.year != empty %}<div><dt>Année</dt><dd>{{ page.year }}</dd></div>{% endif %}
+      {% if page.role and page.role != empty %}<div><dt>Mon rôle</dt><dd>{{ page.role }}</dd></div>{% endif %}
+      {% if page.expertises and page.expertises != empty %}<div><dt>Expertises</dt><dd>{{ page.expertises | join: " · " }}</dd></div>{% endif %}
+    </dl>
+  </header>
+
+  {% include cover.html project=page class="project__cover" vt=true eager=true %}
+
+  <div class="project__body wrap">
+    <div class="prose">
+      {{ content }}
+    </div>
+
+    {% if page.links and page.links != empty %}
+    <ul class="project__links">
+      {% for l in page.links %}<li><a class="btn" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }} <span aria-hidden="true">↗</span></a></li>{% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  {% if page.gallery and page.gallery != empty %}
+  <div class="gallery wrap">
+    {% for g in page.gallery %}
+    <figure class="gallery__item reveal{% if g.wide %} gallery__item--wide{% endif %}">
+      <img src="{{ g.src | relative_url }}" alt="{{ g.alt }}" loading="lazy">
+      {% if g.caption %}<figcaption>{{ g.caption }}</figcaption>{% endif %}
+    </figure>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if projects.size > 1 %}
+  <a class="next" href="{{ next.url | relative_url }}">
+    <span class="label">Projet suivant — {% if next_num < 10 %}0{% endif %}{{ next_num }}</span>
+    <span class="next__title">{{ next.title }} <span class="next__arrow" aria-hidden="true">→</span></span>
+  </a>
+  {% endif %}
+</article>

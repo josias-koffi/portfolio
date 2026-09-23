@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="{{ site.lang | default: 'fr' }}">
+<head>
+  {% include head.html %}
+</head>
+<body class="{{ page.body_class }}">
+  {% include nav.html %}
+  <main id="contenu">
+    {{ content }}
+  </main>
+  {% include footer.html %}
+  {% if site.staging %}<p class="staging-badge">Staging · develop</p>{% endif %}
+</body>
+</html>

@@ -1,0 +1,11 @@
+{% assign items = site.data.profile.marquee %}
+<div class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    {% for n in (1..2) %}
+    <p class="marquee__group">
+      {% for item in items %}<span>{{ item }}</span><span class="marquee__star">✺</span>{% endfor %}
+    </p>
+    {% endfor %}
+  </div>
+</div>
+<p class="sr-only">{{ items | join: ", " }}</p>

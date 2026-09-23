@@ -1,0 +1,107 @@
+---
+layout: default
+body_class: page-home
+---
+{% assign p = site.data.profile %}
+{% assign projects = site.projects | sort: "order" %}
+
+<section class="hero wrap">
+  <p class="hero__top label intro" style="--d: 0">
+    <span>{{ p.location }}</span>
+    <span>{{ p.role }}</span>
+    <span>Portfolio {{ site.time | date: "%Y" }}</span>
+  </p>
+
+  <div class="hero__stage">
+    <h1 class="hero__name" aria-label="{{ p.name_first }} {{ p.name_last }}">
+      <span class="line" aria-hidden="true"><span style="--d: 1">{{ p.name_first }}</span></span>
+      <span class="line line--indent" aria-hidden="true"><span style="--d: 2"><em>{{ p.name_last }}</em><span class="hero__dot">.</span></span></span>
+    </h1>
+
+    {% if p.hero_photo and p.hero_photo != empty %}
+    <figure class="hero__photo intro" style="--d: 3">
+      <div class="hero__float">
+        <div class="hero__tilt">
+          <span class="hero__back" aria-hidden="true"></span>
+          <img class="hero__img" src="{{ p.hero_photo | relative_url }}" alt="{{ p.hero_photo_alt }}" fetchpriority="high">
+          <span class="hero__badge" aria-hidden="true">✺</span>
+        </div>
+      </div>
+      <span class="hero__zones" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+    </figure>
+    {% endif %}
+  </div>
+
+  <div class="hero__bottom">
+    <p class="hero__intro intro" style="--d: 4">
+      Moi, c'est {% include word.html label="Jémima" img=p.portrait tilt="r" %}. Je transforme un brief en
+      {% include word.html label="campagnes 360°" note="Netis Group — télécoms & énergie" %},
+      en {% include word.html label="contenus" note="Boya Food — Instagram, TikTok, Facebook" tilt="r" %} qui accrochent
+      et en {% include word.html label="événements" note="Salon International de l'Agriculture" %} dont on se souvient.
+    </p>
+    <div class="hero__aside intro" style="--d: 5">
+      <p class="hint"><span class="hint__hover">(survolez les mots en gras)</span><span class="hint__touch">(touchez les mots en gras)</span></p>
+      <a class="btn btn--accent" href="#projets">Voir les projets <span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+</section>
+
+{% include marquee.html %}
+
+<section class="work" id="projets">
+  <div class="wrap">
+    <header class="section-head reveal">
+      <h2 class="section-title">Projets <em>choisis</em></h2>
+      <p class="label">({% if projects.size < 10 %}0{% endif %}{{ projects.size }})</p>
+    </header>
+
+    <ol class="work__list">
+      {% for pr in projects %}
+      <li class="work__item reveal">
+        <a class="work__link" href="{{ pr.url | relative_url }}">
+          <span class="work__num">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>
+          <span class="work__text">
+            <span class="work__title">{{ pr.title }}</span>
+            {% if pr.tagline and pr.tagline != empty %}<span class="work__tagline">{{ pr.tagline }}</span>{% endif %}
+          </span>
+          <span class="work__meta">
+            {% if pr.expertises and pr.expertises != empty %}<span>{{ pr.expertises | first }}</span>{% endif %}
+            {% if pr.year and pr.year != empty %}<span>{{ pr.year }}</span>{% endif %}
+          </span>
+          {% include cover.html project=pr class="work__cover" vt=true %}
+        </a>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+<section class="about" id="a-propos">
+  <div class="wrap about__grid">
+    <figure class="about__portrait reveal">
+      <img src="{{ p.portrait | relative_url }}" alt="{{ p.portrait_alt }}" loading="lazy">
+      {% if p.status and p.status != empty %}<figcaption class="label">{{ p.status }}</figcaption>{% endif %}
+    </figure>
+    <div class="about__text">
+      <p class="label reveal">À propos</p>
+      <h2 class="section-title reveal">Créer. Structurer. <em>Valoriser.</em></h2>
+      {% for para in p.about %}<p class="reveal">{{ para }}</p>{% endfor %}
+    </div>
+  </div>
+
+  <div class="wrap">
+    <ul class="expertises">
+      {% for e in p.expertises %}
+      <li class="expertise reveal">
+        <p class="label">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }} — {{ e.label }}</p>
+        <h3>{{ e.title }}</h3>
+        <p>{{ e.items | join: " · " }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <p class="process reveal" aria-label="Ma méthode">
+      {% for step in p.process %}<span>{{ step }}</span>{% unless forloop.last %}<span class="process__arrow" aria-hidden="true">→</span>{% endunless %}{% endfor %}
+    </p>
+  </div>
+</section>

@@ -1,0 +1,12 @@
+{%- comment -%}
+  Couverture d'un projet. Sans image → bloc typographique coloré.
+  Paramètres : project, class, vt (true pour activer la transition entre pages)
+{%- endcomment -%}
+{% assign pr = include.project %}
+<figure class="cover {{ include.class }} cover--{{ pr.tone | default: 'accent' }}"{% if include.vt %} style="view-transition-name: vt-{{ pr.slug }}"{% endif %}>
+  {% if pr.cover and pr.cover != empty %}
+  <img src="{{ pr.cover | relative_url }}" alt="{{ pr.cover_alt | default: pr.title }}"{% if include.eager %} fetchpriority="high"{% else %} loading="lazy"{% endif %}>
+  {% else %}
+  <span class="cover__type" aria-hidden="true"><em>{{ pr.title }}</em></span>
+  {% endif %}
+</figure>

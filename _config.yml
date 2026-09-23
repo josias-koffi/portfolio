@@ -1,0 +1,29 @@
+# Réglages du site — après modification, relancer `bundle exec jekyll serve`.
+title: Jémima Egla
+description: "Communication, brand content & activation — portfolio de Jémima Egla, Paris."
+lang: fr
+
+# Repo « projet » GitHub Pages → https://<compte>.github.io/portfolio/
+# Si le repo s'appelle autrement, mettre ici "/<nom-du-repo>".
+# (Sur GitHub, le workflow .github/workflows/pages.yml force le bon baseurl.)
+baseurl: "/portfolio"
+url: "https://josias-koffi.github.io"
+
+markdown: kramdown
+
+collections:
+  projects:
+    output: true
+    permalink: /projets/:name/
+
+defaults:
+  - scope: { path: "", type: projects }
+    values: { layout: project }
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - _archive
+  - vendor
+  - "*.env"

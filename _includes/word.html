@@ -1,0 +1,5 @@
+{%- comment -%}
+  Mot en gras qui révèle une image (ou une note) au survol.
+  Usage : {% include word.html label="événements" img="/assets/…jpg" note="Netis Technology Day" %}
+{%- endcomment -%}
+<span class="word" tabindex="0"><strong>{{ include.label }}</strong><span class="word__pop word__pop--{{ include.tilt | default: 'l' }}" aria-hidden="true">{% if include.img and include.img != empty %}<img src="{{ include.img | relative_url }}" alt="" loading="lazy">{% else %}<em>{{ include.note }}</em>{% endif %}</span></span>

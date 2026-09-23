@@ -1,0 +1,15 @@
+{% assign p = site.data.profile %}
+<footer class="footer" id="contact">
+  <div class="wrap">
+    <p class="label reveal">Contact</p>
+    <h2 class="footer__title reveal">Parlons-<em>en.</em></h2>
+    <p class="footer__lead reveal">Un projet, une alternance, une idée de campagne&nbsp;? Écrivez-moi, je réponds vite.</p>
+    {% if p.email and p.email != empty %}<a class="footer__mail reveal" href="mailto:{{ p.email }}">{{ p.email }} <span aria-hidden="true">↗</span></a>{% endif %}
+    <ul class="footer__links">
+      {% if p.linkedin and p.linkedin != empty %}<li><a href="{{ p.linkedin }}" target="_blank" rel="noopener">LinkedIn</a></li>{% endif %}
+      {% if p.instagram and p.instagram != empty %}<li><a href="{{ p.instagram }}" target="_blank" rel="noopener">{{ p.instagram_label | default: "Instagram" }}</a></li>{% endif %}
+      {% if p.phone and p.phone != empty %}<li><a href="tel:{{ p.phone | remove: ' ' }}">{{ p.phone }}</a></li>{% endif %}
+    </ul>
+    <p class="footer__meta"><span>© {{ site.time | date: "%Y" }} {{ p.name_first }} {{ p.name_last }}</span><span>{{ p.location }}</span></p>
+  </div>
+</footer>
