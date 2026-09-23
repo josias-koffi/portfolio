@@ -3,10 +3,18 @@
 {% if page.title %}{% capture page_title %}{{ page.title }} — {{ site.title }}{% endcapture %}{% else %}{% capture page_title %}{{ site.title }} — {{ site.data.profile.role }}{% endcapture %}{% endif %}
 <title>{{ page_title }}</title>
 <meta name="description" content="{{ page.tagline | default: page.description | default: site.description | strip_html | strip }}">
+{% assign p = site.data.profile %}
+{% if page.cover and page.cover != empty %}{% assign share_img = page.cover %}{% else %}{% assign share_img = p.share_image | default: p.portrait %}{% endif %}
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="{{ site.title }}">
 <meta property="og:title" content="{{ page_title }}">
 <meta property="og:description" content="{{ page.tagline | default: site.description }}">
-<meta property="og:type" content="website">
-<meta property="og:image" content="{{ page.cover | default: site.data.profile.portrait | absolute_url }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:image" content="{{ share_img | absolute_url }}">
+<meta property="og:image:alt" content="{% if share_img == page.cover %}{{ page.cover_alt | default: page.title }}{% else %}{{ p.portrait_alt }}{% endif %}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
 {% if site.staging %}<meta name="robots" content="noindex, nofollow">{% endif %}
 <meta name="theme-color" content="#F4F1EA">
 <link rel="preconnect" href="https://fonts.googleapis.com">
